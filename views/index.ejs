@@ -1,0 +1,55 @@
+<%- include('header') %>
+
+
+<h1>Accounts</h1>
+<a href="/accounts">New Account</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Owner</th>
+            <th>Balance</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% accounts.forEach(account => { %>
+            <tr>
+                <td><%= account.id %></td>
+                <td><%= account.owner %></td>
+                <td><%= account.balance %></td>
+                <td>
+                    <a href="">Edit</a>
+                    <a href="">Delete</a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+<h1>Transactions</h1>
+<a href="/transactions">New transaction</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>From Account</th>
+            <th>To Account</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% transactions.forEach(transaction => { %>
+            <tr>
+                <td><%= transaction.id %></td>
+                <td><%= transaction.from_acc %></td>
+                <td><%= transaction.to_acc %></td>
+                <td><%= transaction.amount %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+
+
+<%- include('footer') %>

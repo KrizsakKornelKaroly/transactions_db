@@ -1,0 +1,13 @@
+<%- include('header') %>
+
+<h1>Accounts</h1>
+
+<form action="/accounts" method="POST">
+    <input type="text" name="owner" placeholder="Owner" required>
+    <input type="number" name="balance" placeholder="Balance" required>
+    <button type="submit">Save</button>
+</form>
+
+<a href="/results">Back to main page</a>
+
+<%- include('footer') %>

@@ -1,0 +1,28 @@
+<%- include('header') %>
+
+<h1>Transactions</h1>
+
+<form action="/transactions" method="POST">
+    From Account:
+    <select name="from_account_id" id="from_account_id">
+        <% accounts.forEach(account => { %>
+            <option value="<%= account.id %>"><%= account.owner %></option>
+        <% }) %>
+    </select>
+    <br><br>
+    To Account:
+    <select name="to_account_id" id="to_account_id">
+        <% accounts.forEach(account => { %>
+            <option value="<%= account.id %>"><%= account.owner %></option>
+        <% }) %>
+    </select>
+    <br><br>
+    Amount:
+    <input type="number" name="amount" id="amount" placeholder="Amount" required>
+    <br><br>
+    <button type="submit">Transfer</button>
+    <br><br>
+    <a href="/">Back to main</a>
+</form>
+
+<%- include('footer') %>
