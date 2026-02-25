@@ -1,55 +1,146 @@
 <%- include('header') %>
 
+<div class="container fade-in">
 
-<h1>Accounts</h1>
-<a href="/accounts">New Account</a>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Owner</th>
-            <th>Balance</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% accounts.forEach(account => { %>
-            <tr>
-                <td><%= account.id %></td>
-                <td><%= account.owner %></td>
-                <td><%= account.balance %></td>
-                <td>
-                    <a href="">Edit</a>
-                    <a href="">Delete</a>
-                </td>
-            </tr>
-        <% }) %>
-    </tbody>
-</table>
+    <!-- Stats Row -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-icon blue">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <h3><%= accounts.length %></h3>
+                <p>Total Accounts</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon green">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <h3><%= transactions.length %></h3>
+                <p>Total Transfers</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon cyan">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <h3>$<%= accounts.reduce((sum, a) => sum + Number(a.balance), 0).toLocaleString() %></h3>
+                <p>Total Balance</p>
+            </div>
+        </div>
+    </div>
 
-<h1>Transactions</h1>
-<a href="/transactions">New transaction</a>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>From Account</th>
-            <th>To Account</th>
-            <th>Amount</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% transactions.forEach(transaction => { %>
-            <tr>
-                <td><%= transaction.id %></td>
-                <td><%= transaction.from_acc %></td>
-                <td><%= transaction.to_acc %></td>
-                <td><%= transaction.amount %></td>
-            </tr>
-        <% }) %>
-    </tbody>
-</table>
+    <!-- Accounts Section -->
+    <div class="section">
+        <div class="card">
+            <div class="card-header">
+                <h2>Accounts</h2>
+                <a href="/accounts" class="btn btn-primary btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Account
+                </a>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Owner</th>
+                            <th>Balance</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (accounts.length === 0) { %>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="empty-state">
+                                        <p>No accounts yet. Create one to get started!</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
+                        <% accounts.forEach(account => { %>
+                            <tr>
+                                <td><span class="badge badge-id">#<%= account.id %></span></td>
+                                <td><strong><%= account.owner %></strong></td>
+                                <td><span class="badge badge-amount">$<%= Number(account.balance).toLocaleString() %></span></td>
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <a href="" class="btn btn-outline btn-sm">Edit</a>
+                                        <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
+    <!-- Transactions Section -->
+    <div class="section">
+        <div class="card">
+            <div class="card-header">
+                <h2>Transactions</h2>
+                <a href="/transactions" class="btn btn-success btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Transfer
+                </a>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>From Account</th>
+                            <th>To Account</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (transactions.length === 0) { %>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="empty-state">
+                                        <p>No transactions yet. Make a transfer to get started!</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
+                        <% transactions.forEach(transaction => { %>
+                            <tr>
+                                <td><span class="badge badge-id">#<%= transaction.id %></span></td>
+                                <td><%= transaction.from_acc %></td>
+                                <td><%= transaction.to_acc %></td>
+                                <td><span class="badge badge-amount">$<%= Number(transaction.amount).toLocaleString() %></span></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
+</div>
 
 <%- include('footer') %>
